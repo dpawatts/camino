@@ -1,0 +1,6 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Embedded.master.cs" Inherits="Camino.Tests.Resources1.Embedded" MasterPageFile="~/Site.master" %>
+
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <p>This is an embedded nested master page.</p>
+	<asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+</asp:Content>
