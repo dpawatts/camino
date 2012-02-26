@@ -10,6 +10,16 @@ namespace Camino
 		private readonly Assembly _assembly;
 		private readonly string _resourceName;
 
+		public Assembly Assembly
+		{
+			get { return _assembly; }
+		}
+
+		public string ResourceName
+		{
+			get { return _resourceName; }
+		}
+
 		public EmbeddedResource(Assembly assembly, string resourceName)
 		{
 			_assembly = assembly;

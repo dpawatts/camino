@@ -11,21 +11,37 @@ namespace Camino
 	public class EmbeddedResourcePathProvider : VirtualPathProvider
 	{
 		private readonly Dictionary<string, EmbeddedResource> _resources;
+		private readonly Dictionary<EmbeddedResource, string> _urls;
 
 		public EmbeddedResourcePathProvider()
 		{
 			_resources = new Dictionary<string, EmbeddedResource>();
+			_urls = new Dictionary<EmbeddedResource, string>();
 		}
  
 		public void AddAssembly(Assembly assembly, string prefix)
 		{
+			prefix = prefix.Trim('/');
 			string assemblyName = assembly.GetName().Name;
 			string prefixAsKey = GetResourceKey(prefix);
 			foreach (var resourceName in assembly.GetManifestResourceNames().Where(n => n.StartsWith(assemblyName)))
 			{
 				string key = prefixAsKey + "." + resourceName.ToLower().Substring(assemblyName.Length + 1);
-				_resources[key] = new EmbeddedResource(assembly, resourceName);
+				var resource = _resources[key] = new EmbeddedResource(assembly, resourceName);
+
+				string url = key.Replace('.', '/');
+				var fileExtensionDot = url.LastIndexOf('/');
+				_urls[resource] = "/" + url.Substring(0, fileExtensionDot) + "." + url.Substring(fileExtensionDot + 1);
 			}
+		}
+
+		public string GetUrl(Assembly assembly, string resourceName)
+		{
+			var resource = _resources.Values.SingleOrDefault(r => r.Assembly == assembly && r.ResourceName == resourceName);
+			if (resource == null)
+				throw new InvalidOperationException("Could not find an embedded resource matching the specified assembly and resource name.");
+
+			return _urls[resource];
 		}
 
 		private static string GetResourceKey(string virtualPath)
