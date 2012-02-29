@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
 
@@ -12,11 +13,13 @@ namespace Camino
 	{
 		private readonly Dictionary<string, EmbeddedResource> _resources;
 		private readonly Dictionary<EmbeddedResource, string> _urls;
+		private readonly List<string> _directories;
 
 		public EmbeddedResourcePathProvider()
 		{
 			_resources = new Dictionary<string, EmbeddedResource>();
 			_urls = new Dictionary<EmbeddedResource, string>();
+			_directories = new List<string>();
 		}
  
 		public void AddAssembly(Assembly assembly, string prefix)
@@ -26,12 +29,17 @@ namespace Camino
 			string prefixAsKey = GetResourceKey(prefix);
 			foreach (var resourceName in assembly.GetManifestResourceNames().Where(n => n.StartsWith(assemblyName)))
 			{
-				string key = prefixAsKey + "." + resourceName.ToLower().Substring(assemblyName.Length + 1);
+				var key = prefixAsKey + "." + resourceName.ToLower().Substring(assemblyName.Length + 1);
 				var resource = _resources[key] = new EmbeddedResource(assembly, resourceName);
 
-				string url = key.Replace('.', '/');
-				var fileExtensionDot = url.LastIndexOf('/');
-				_urls[resource] = "/" + url.Substring(0, fileExtensionDot) + "." + url.Substring(fileExtensionDot + 1);
+				var tempUrl = key.Replace('.', '/');
+				var fileExtensionDot = tempUrl.LastIndexOf('/');
+				var url = "/" + tempUrl.Substring(0, fileExtensionDot) + "." + tempUrl.Substring(fileExtensionDot + 1);
+				_urls[resource] = url;
+
+				var directory = VirtualPathUtility.GetDirectory(url).Trim('/');
+				if (!_directories.Contains(directory))
+					_directories.Add(directory);
 			}
 		}
 
@@ -56,6 +64,12 @@ namespace Camino
 			EmbeddedResource result;
 			_resources.TryGetValue(resourceKey, out result);
 			return result;
+		}
+
+		public override bool DirectoryExists(string virtualDir)
+		{
+			var formattedVirtualDir = virtualDir.TrimStart('~', '/').TrimEnd('/').ToLower();
+			return base.DirectoryExists(virtualDir) || _directories.Contains(formattedVirtualDir);
 		}
 
 		public override bool FileExists(string virtualPath)

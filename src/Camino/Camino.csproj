@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultDocumentModule.cs" />
     <Compile Include="EmbeddedResource.cs" />
     <Compile Include="EmbeddedResourcePathProvider.cs" />
     <Compile Include="EmbeddedResourceVirtualFile.cs" />

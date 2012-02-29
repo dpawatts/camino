@@ -9,8 +9,8 @@
 		<li><a href="/test">Embedded directory with default document (/test)</a></li>
 		<li><a href="/test/">Embedded directory with trailing slash with default document (/test/)</a></li>
 		<li><a href="/test/childfolder/embeddedunderfolder.aspx">Embedded file under folder (/test/childfolder/embeddedunderfolder.aspx)</a></li>
-		<li><a href="/test/childfolder">Embedded directory with default document under folder (/test/childfolder)</a></li>
-		<li><a href="/test/childfolder/">Embedded directory with trailing slash with default document under folder (/test/childfolder)</a></li>
+		<li><a href="/test/nested">Embedded directory with default document nested under same prefix as another assembly (/test/nested)</a></li>
+		<li><a href="/test/nested/">Embedded directory with trailing slash with default document nested under same prefix as another assembly (/test/nested/)</a></li>
 		<li><a href="/test/nested/nested.aspx">Embedded file nested under same prefix as another assembly (/test/nested/nested.aspx)</a></li>
 	</ul>
 </asp:Content>

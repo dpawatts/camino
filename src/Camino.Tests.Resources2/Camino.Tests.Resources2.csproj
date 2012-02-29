@@ -51,6 +51,13 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Nested.aspx.cs">
       <DependentUpon>Nested.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -60,7 +67,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Default.aspx" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Nested.aspx" />
   </ItemGroup>
