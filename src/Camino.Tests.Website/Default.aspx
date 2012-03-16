@@ -12,5 +12,6 @@
 		<li><a href="/test/nested">Embedded directory with default document nested under same prefix as another assembly (/test/nested)</a></li>
 		<li><a href="/test/nested/">Embedded directory with trailing slash with default document nested under same prefix as another assembly (/test/nested/)</a></li>
 		<li><a href="/test/nested/nested.aspx">Embedded file nested under same prefix as another assembly (/test/nested/nested.aspx)</a></li>
+		<li><a href="/filtered/about.aspx">Embedded file from a specific folder in another assembly (/filtered/about.aspx)</a></li>
 	</ul>
 </asp:Content>

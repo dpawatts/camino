@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Web.Hosting;
-using Camino.Tests.Resources1;
-using Camino.Tests.Resources2;
 
 namespace Camino.Tests.Website
 {
@@ -11,8 +9,9 @@ namespace Camino.Tests.Website
 		{
 			// Code that runs on application startup
 			var virtualPathProvider = new Camino.EmbeddedResourcePathProvider();
-			virtualPathProvider.AddAssembly(typeof(Embedded).Assembly, "test");
-			virtualPathProvider.AddAssembly(typeof(Nested).Assembly, "test/nested");
+			virtualPathProvider.AddAssembly(typeof(Resources1.Embedded).Assembly, "test");
+			virtualPathProvider.AddAssembly(typeof(Resources2.Nested).Assembly, "test/nested");
+			virtualPathProvider.AddAssembly(typeof(Resources3._Default).Assembly, "Admin", "filtered");
 
 			HostingEnvironment.RegisterVirtualPathProvider(virtualPathProvider);
 		}

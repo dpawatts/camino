@@ -21,15 +21,21 @@ namespace Camino
 			_urls = new Dictionary<EmbeddedResource, string>();
 			_directories = new List<string>();
 		}
- 
+
 		public void AddAssembly(Assembly assembly, string prefix)
+		{
+			AddAssembly(assembly, string.Empty, prefix);
+		}
+ 
+		public void AddAssembly(Assembly assembly, string folder, string prefix)
 		{
 			prefix = prefix.Trim('/');
 			string assemblyName = assembly.GetName().Name;
+			string filteredAssemblyName = assemblyName + "." + folder;
 			string prefixAsKey = GetResourceKey(prefix);
-			foreach (var resourceName in assembly.GetManifestResourceNames().Where(n => n.StartsWith(assemblyName)))
+			foreach (var resourceName in assembly.GetManifestResourceNames().Where(n => n.StartsWith(filteredAssemblyName)))
 			{
-				var key = prefixAsKey + "." + resourceName.ToLower().Substring(assemblyName.Length + 1);
+				var key = prefixAsKey + "." + resourceName.ToLower().Substring(filteredAssemblyName.Length + 1);
 				var resource = _resources[key] = new EmbeddedResource(assembly, resourceName);
 
 				var tempUrl = key.Replace('.', '/');
