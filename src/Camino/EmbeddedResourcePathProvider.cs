@@ -31,7 +31,7 @@ namespace Camino
 		{
 			prefix = prefix.Trim('/');
 			string assemblyName = assembly.GetName().Name;
-			string filteredAssemblyName = assemblyName + "." + folder;
+			string filteredAssemblyName = (string.IsNullOrEmpty(folder)) ? assemblyName : assemblyName + "." + folder;
 			string prefixAsKey = GetResourceKey(prefix);
 			foreach (var resourceName in assembly.GetManifestResourceNames().Where(n => n.StartsWith(filteredAssemblyName)))
 			{
