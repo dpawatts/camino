@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EmbeddedPathProvider")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Camino")]
+[assembly: AssemblyDescription("ASP.NET Virtual Path Provider for embedded resources")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Sound in Theory Ltd")]
 [assembly: AssemblyProduct("EmbeddedPathProvider")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright © Sound in Theory Ltd 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
